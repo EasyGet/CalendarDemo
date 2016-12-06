@@ -26,7 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		13F7C0121DF6E14F00EA9626 /* Macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
+		13F7C0141DF6F29F00EA9626 /* CalendarMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarMacro.h; sourceTree = "<group>"; };
 		13FA67D11DF5DEB900B7710E /* CalendarDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13FA67D51DF5DEB900B7710E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		13FA67D71DF5DEB900B7710E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -117,6 +117,7 @@
 		13FA67EB1DF5DED900B7710E /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				13F7C0141DF6F29F00EA9626 /* CalendarMacro.h */,
 				13FA67EC1DF5DED900B7710E /* Calendar.h */,
 				13FA67ED1DF5DED900B7710E /* calendar_next@2x.png */,
 				13FA67EE1DF5DED900B7710E /* calendar_pre@2x.png */,
@@ -134,7 +135,6 @@
 				13FA67FA1DF5DED900B7710E /* CollectionViewCell.m */,
 				13FA67FB1DF5DED900B7710E /* NSDate+CountCategory.h */,
 				13FA67FC1DF5DED900B7710E /* NSDate+CountCategory.m */,
-				13F7C0121DF6E14F00EA9626 /* Macro.h */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
