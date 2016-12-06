@@ -88,7 +88,6 @@
     _weekDayDescs = @[@"日", @"一", @"二", @"三", @"四", @"五", @"六"];
     
     [self addGestureRecognizer:[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipGestureRecognizer:)]];
-    
     UISwipeGestureRecognizer *left = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipGestureRecognizer:)];
     left.direction = UISwipeGestureRecognizerDirectionLeft;
     [self addGestureRecognizer:left];
@@ -100,7 +99,11 @@
     down.direction = UISwipeGestureRecognizerDirectionDown;
     [self addGestureRecognizer:down];
     
-//    [self addObserver:self forKeyPath:@"date" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:nil];
+    [self addObserver:self forKeyPath:@"date" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:nil];
+    
+    
+//    [self configDate:self.date];
+    
 }
 
 #pragma mark -  Property Method
@@ -134,17 +137,17 @@
  
  @param date 需要设置的日期
  */
-- (void)setDate:(NSDate *)date
-{
-    _date = date;
-    NSString *dateDesc = [date cacheDescKey];
-    CalendarObject *object = [self.cache objectForKey:dateDesc];
-    if (!object) {
-        object = [[CalendarObject alloc] initWithDate:_date];
-        [self.cache setObject:object forKey:dateDesc];
-    }
-    _calendarObject = object;
-}
+//- (void)setDate:(NSDate *)date
+//{
+//    _date = date;
+//    NSString *dateDesc = [date cacheDescKey];
+//    CalendarObject *object = [self.cache objectForKey:dateDesc];
+//    if (!object) {
+//        object = [[CalendarObject alloc] initWithDate:_date];
+//        [self.cache setObject:object forKey:dateDesc];
+//    }
+//    _calendarObject = object;
+//}
 
 - (CalendarObject *)calendarObject
 {
@@ -311,11 +314,32 @@
     }
     if (self.heightBlock) {
         WeakSelf
-        CGFloat height = CGRectGetWidth(_collectionView.frame) / 7 * (1 + _calendarObject.weekCount.integerValue) + 32.0;
+        __block CGFloat height = CGRectGetWidth(_collectionView.frame) / 7 * (1 + _calendarObject.weekCount.integerValue) + 32.0;
         self.heightBlock(weakSelf, height);
     }
     
     [_collectionView reloadData];
 }
+
+#pragma mark - Observe
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"date"]) {
+        NSDate *date = [change objectForKey:NSKeyValueChangeNewKey];
+        [self configDate:date];
+    }
+}
+
+- (void)configDate:(NSDate *)date
+{
+    NSString *dateDesc = [date cacheDescKey];
+    CalendarObject *object = [self.cache objectForKey:dateDesc];
+    if (!object) {
+        object = [[CalendarObject alloc] initWithDate:_date];
+        [self.cache setObject:object forKey:dateDesc];
+    }
+    _calendarObject = object;
+}
+
 
 @end

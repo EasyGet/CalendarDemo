@@ -26,7 +26,6 @@
     [self.view addSubview:calendarView];
     
     WeakSelf
-    calendarView.date = [NSDate date];
     [calendarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.view);
         make.right.equalTo(weakSelf.view);
@@ -35,9 +34,9 @@
         
     }];
     calendarView.clickBlock = ^(CalendarView *calendarView, NSDate *date, BOOL shouldRespond) {
-        [weakSelf dismissViewControllerAnimated:YES completion:^{
-            
-        }];
+       
+        NSLog(@"date is %@", date);
+        
         
     };
     // Do any additional setup after loading the view, typically from a nib.
