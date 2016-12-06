@@ -152,13 +152,7 @@
 - (CalendarObject *)calendarObject
 {
     if (!_calendarObject) {
-        NSString *dateDesc = [self.date cacheDescKey];
-        CalendarObject *object = [self.cache objectForKey:dateDesc];
-        if (!object) {
-            object = [[CalendarObject alloc] initWithDate:_date];
-            [self.cache setObject:object forKey:dateDesc];
-        }
-        _calendarObject = object;
+        [self configDate:self.date];
     }
     return _calendarObject;
 }
