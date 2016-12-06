@@ -12,31 +12,31 @@
 
 
 /**
- <#Description#>
+ 所在月份里面有几周
 
- @return <#return value description#>
+ @return 周数
  */
 - (NSNumber *)weekCountInMonth;
 
 /**
- <#Description#>
+ 所在月份有多少天
 
- @return <#return value description#>
+ @return 天数
  */
 - (NSNumber *)daysCountInMonth;
 
 /**
- <#Description#>
+ 所在月份的第一天
 
- @return <#return value description#>
+ @return 1日所在的索引
  */
 - (NSNumber *)firstDayInMonth;
 
 
 /**
- <#Description#>
+ 所在月份对应的cache中的key
 
- @return <#return value description#>
+ @return 根据实际需要来处理
  */
 - (NSString *)cacheDescKey;
 
