@@ -26,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13F7C0121DF6E14F00EA9626 /* Macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
 		13FA67D11DF5DEB900B7710E /* CalendarDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13FA67D51DF5DEB900B7710E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		13FA67D71DF5DEB900B7710E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -133,6 +134,7 @@
 				13FA67FA1DF5DED900B7710E /* CollectionViewCell.m */,
 				13FA67FB1DF5DED900B7710E /* NSDate+CountCategory.h */,
 				13FA67FC1DF5DED900B7710E /* NSDate+CountCategory.m */,
+				13F7C0121DF6E14F00EA9626 /* Macro.h */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -428,12 +430,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = QH9LK7KQ6G;
 				INFOPLIST_FILE = CalendarDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.demo.CalendarDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1b6cb392-5f2a-4d62-9cbe-d6d73b80059a";
+				PROVISIONING_PROFILE_SPECIFIER = Development;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

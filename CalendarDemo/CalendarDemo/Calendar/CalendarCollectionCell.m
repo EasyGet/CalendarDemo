@@ -8,6 +8,7 @@
 
 #import "CalendarCollectionCell.h"
 #import <Masonry/Masonry.h>
+#import "Macro.h"
 
 @implementation CalendarCollectionCell
 
@@ -26,6 +27,7 @@
 */
 - (void)subviewsCreation
 {
+    WeakSelf
     self.backgroundColor = [UIColor whiteColor];
     _titleLabel = [[UILabel alloc] init];
     _titleLabel.text = @" ";
@@ -34,8 +36,8 @@
     [_titleLabel sizeToFit];
     
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.and.centerY.equalTo(self);
-        make.height.mas_equalTo(CGRectGetHeight(_titleLabel.bounds));
+        make.left.and.right.and.centerY.equalTo(weakSelf);
+        make.height.mas_equalTo(CGRectGetHeight(weakSelf.titleLabel.bounds));
     }];
 }
 

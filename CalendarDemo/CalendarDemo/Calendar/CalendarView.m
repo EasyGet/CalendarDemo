@@ -14,6 +14,7 @@
 #import "CalendarReusableViewHeader.h"
 
 #import <Masonry/Masonry.h>
+#import "Macro.h"
 
 @interface CalendarView () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -64,6 +65,7 @@
  */
 - (void)subviewsCreation
 {
+    WeakSelf
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 0;
     layout.minimumLineSpacing = 0;
@@ -80,7 +82,7 @@
     
     [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.edges.equalTo(self);
+        make.edges.equalTo(weakSelf);
     }];
     
     _weekDayDescs = @[@"日", @"一", @"二", @"三", @"四", @"五", @"六"];
@@ -97,6 +99,8 @@
     UISwipeGestureRecognizer *down = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipGestureRecognizer:)];
     down.direction = UISwipeGestureRecognizerDirectionDown;
     [self addGestureRecognizer:down];
+    
+//    [self addObserver:self forKeyPath:@"date" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:nil];
 }
 
 #pragma mark -  Property Method
@@ -188,8 +192,6 @@
     } else {
         calendarCell.titleLabel.textColor = [UIColor blackColor];
     }
-    
-    
     if (indexPath.section == 0) {
         calendarCell.titleLabel.text = [_weekDayDescs objectAtIndex:indexPath.row];
     } else {
@@ -215,8 +217,10 @@
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         CalendarReusableViewHeader *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"Header" forIndexPath:indexPath];
         reusableView.titleLabel.text = [self.date cacheDescKey];
+        
+        WeakSelf
         reusableView.respondClickActionBlock = ^(RespondForwardType forwardType) {
-            [self dateWithForwardType:forwardType];
+            [weakSelf dateWithForwardType:forwardType];
         };
         return reusableView;
     } else {
@@ -235,8 +239,11 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.clickBlock) {
-        __weak typeof(self) weakSelf = self;
-        self.clickBlock(weakSelf, [_calendarObject dateAtIndex:indexPath.row], (indexPath.section == 1 && NumberAtIndexFrom(self.calendarObject.firstWeekday.integerValue, self.calendarObject.totaldays.integerValue, indexPath.row)) == 1);
+        WeakSelf
+        __block NSDate *date = [self.calendarObject dateAtIndex:indexPath.row];
+        __block BOOL result = (indexPath.section != 0) && NumberAtIndexFrom(weakSelf.calendarObject.firstWeekday.integerValue, weakSelf.calendarObject.totaldays.integerValue, indexPath.row) != 0;
+        
+        self.clickBlock(weakSelf, date, result);
     }
 }
 /*
@@ -252,7 +259,8 @@
 - (void)swipGestureRecognizer:(UISwipeGestureRecognizer *)swipGestureRecognizer
 {
     if (self.swipeBlock) {
-        self.swipeBlock(self, swipGestureRecognizer.direction);
+        WeakSelf
+        self.swipeBlock(weakSelf, swipGestureRecognizer.direction);
     } else {
         switch (swipGestureRecognizer.direction) {
             case UISwipeGestureRecognizerDirectionRight:
@@ -270,7 +278,6 @@
             default:
                 break;
         }
-    
     }
 }
 
@@ -303,13 +310,12 @@
             break;
     }
     if (self.heightBlock) {
-        __weak typeof(self) weakSelf = self;
+        WeakSelf
         CGFloat height = CGRectGetWidth(_collectionView.frame) / 7 * (1 + _calendarObject.weekCount.integerValue) + 32.0;
         self.heightBlock(weakSelf, height);
     }
     
     [_collectionView reloadData];
 }
-
 
 @end

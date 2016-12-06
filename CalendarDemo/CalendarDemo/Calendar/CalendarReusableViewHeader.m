@@ -9,6 +9,8 @@
 #import "CalendarReusableViewHeader.h"
 
 #import <Masonry/Masonry.h>
+#import "Macro.h"
+
 
 @implementation CalendarReusableViewHeader
 
@@ -21,6 +23,7 @@
 }
 -(void)subViewsCreation
 {
+    WeakSelf
     self.backgroundColor = [UIColor blueColor];
     _titleLabel = [[UILabel alloc] init];
     _titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -38,30 +41,30 @@
     
     
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.and.centerY.equalTo(self);
-        make.left.equalTo(_preAction.mas_right);
-        make.right.equalTo(_nextAction.mas_left);
-        make.height.equalTo(self);
+        make.centerX.and.centerY.equalTo(weakSelf);
+        make.left.equalTo(weakSelf.preAction.mas_right);
+        make.right.equalTo(weakSelf.nextAction.mas_left);
+        make.height.equalTo(weakSelf);
     }];
     
     [_preAction mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.top.equalTo(self).with.offset(5);
-        make.height.equalTo(self).with.offset(-10);
-        make.width.equalTo(_preAction.mas_height);
+        make.left.and.top.equalTo(weakSelf).with.offset(5);
+        make.height.equalTo(weakSelf).with.offset(-10);
+        make.width.equalTo(weakSelf.preAction.mas_height);
     }];
     
     [_nextAction mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).with.offset(5);
-        make.right.equalTo(self).with.offset(-5);
-        make.height.equalTo(self).with.offset(-10);
-        make.width.equalTo(_nextAction.mas_height);
+        make.top.equalTo(weakSelf).with.offset(5);
+        make.right.equalTo(weakSelf).with.offset(-5);
+        make.height.equalTo(weakSelf).with.offset(-10);
+        make.width.equalTo(weakSelf.nextAction.mas_height);
     }];
 }
 
 - (void)buttonAction:(UIButton *)sender
 {
     if (self.respondClickActionBlock) {
-        RespondForwardType forwardType;
+        __block RespondForwardType forwardType;
         if (sender == _preAction) {
             forwardType = RespondForwardTypePre;
         } else if (sender == _nextAction) {

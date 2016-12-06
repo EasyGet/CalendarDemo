@@ -11,6 +11,7 @@
 #import "CalendarView.h"
 
 #import <Masonry/Masonry.h>
+#import "Macro.h"
 
 @interface ViewController ()
 
@@ -24,21 +25,33 @@
     
     [self.view addSubview:calendarView];
     
-    
+    WeakSelf
+    calendarView.date = [NSDate date];
     [calendarView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view);
-        make.right.equalTo(self.view);
-        make.top.equalTo(self.mas_topLayoutGuideBottom).with.offset(30);
-        make.bottom.equalTo(self.mas_bottomLayoutGuideTop);
+        make.left.equalTo(weakSelf.view);
+        make.right.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.mas_topLayoutGuideBottom).with.offset(30);
+        make.bottom.equalTo(weakSelf.mas_bottomLayoutGuideTop);
         
     }];
-    
     calendarView.clickBlock = ^(CalendarView *calendarView, NSDate *date, BOOL shouldRespond) {
+        [weakSelf dismissViewControllerAnimated:YES completion:^{
+            
+        }];
         
     };
     // Do any additional setup after loading the view, typically from a nib.
+    
+    
+    
+//    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)]];
+    
 }
 
+//- (void)dismiss
+//{
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
