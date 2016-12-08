@@ -99,7 +99,7 @@
     down.direction = UISwipeGestureRecognizerDirectionDown;
     [self addGestureRecognizer:down];
     
-    [self addObserver:self forKeyPath:@"date" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:nil];
+//    [self addObserver:self forKeyPath:@"date" options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) context:nil];
     
     
 //    [self configDate:self.date];
@@ -236,9 +236,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.clickBlock) {
-        WeakSelf
-        __block NSDate *date = [self.calendarObject dateAtIndex:indexPath.row];
-        __block BOOL result = (indexPath.section != 0) && NumberAtIndexFrom(weakSelf.calendarObject.firstWeekday.integerValue, weakSelf.calendarObject.totaldays.integerValue, indexPath.row) != 0;
+        WeakSelf;
+        NSDate *date = [self.calendarObject dateAtIndex:indexPath.row];
+        BOOL result = (indexPath.section != 0) && NumberAtIndexFrom(self.calendarObject.firstWeekday.integerValue, self.calendarObject.totaldays.integerValue, indexPath.row) != 0;
         
         self.clickBlock(weakSelf, date, result);
     }
@@ -256,7 +256,7 @@
 - (void)swipGestureRecognizer:(UISwipeGestureRecognizer *)swipGestureRecognizer
 {
     if (self.swipeBlock) {
-        WeakSelf
+        WeakSelf;
         self.swipeBlock(weakSelf, swipGestureRecognizer.direction);
     } else {
         switch (swipGestureRecognizer.direction) {
@@ -333,6 +333,13 @@
         [self.cache setObject:object forKey:dateDesc];
     }
     _calendarObject = object;
+}
+
+
+- (void)dealloc
+{
+
+    
 }
 
 

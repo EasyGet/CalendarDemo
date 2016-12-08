@@ -8,7 +8,7 @@
 
 #ifndef WeakSelf
 
-#define WeakSelf __weak typeof(self) weakSelf = self;
+#define WeakSelf __weak typeof(&*self) weakSelf = self;
 
 
 #endif

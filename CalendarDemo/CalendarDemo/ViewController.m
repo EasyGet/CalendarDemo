@@ -22,7 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     CalendarView *calendarView = [[CalendarView alloc] initWithFrame:self.view.bounds];
-    
     [self.view addSubview:calendarView];
     
     WeakSelf
@@ -34,10 +33,8 @@
         
     }];
     calendarView.clickBlock = ^(CalendarView *calendarView, NSDate *date, BOOL shouldRespond) {
-       
         NSLog(@"date is %@", date);
-        
-        
+        [weakSelf.navigationController popViewControllerAnimated:YES];
     };
     // Do any additional setup after loading the view, typically from a nib.
     
